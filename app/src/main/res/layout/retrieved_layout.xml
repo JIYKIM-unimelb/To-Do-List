@@ -2,6 +2,7 @@
 <!--    Implement the Material Design card pattern with round corners and drop shadows.-->
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:elevation="10dp"
     app:cardElevation="10dp"
@@ -11,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientatoin="vertical"
+        android:orientation="vertical"
         android:layout_margin="10dp">
         
         <LinearLayout
