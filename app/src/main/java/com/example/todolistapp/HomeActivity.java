@@ -24,6 +24,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -153,9 +155,9 @@ public class HomeActivity extends AppCompatActivity {
         protected void onStart(){
         super.onStart();
 
-        FirebaseRecyclerOptions<Model> options = new FirebaseRecyclerOptions.Builder<Model>()
-                .setQuery(reference, Model.class)
-                .build();
+            FirebaseRecyclerOptions<Model> options = new FirebaseRecyclerOptions.Builder<Model>()
+                    .setQuery(reference, Model.class)
+                    .build();
 
         FirebaseRecyclerAdapter<Model, MyViewHolder> adapter = new FirebaseRecyclerAdapter<Model, MyViewHolder>(options) {
             @Override
@@ -163,8 +165,8 @@ public class HomeActivity extends AppCompatActivity {
                 holder.setDate(model.getDate());
                 holder.setTask(model.getTask());
                 holder.setDesc(model.getDescription());
-
             }
+
             @NonNull
             @Override
             public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
