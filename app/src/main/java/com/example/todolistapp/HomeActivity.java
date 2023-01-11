@@ -7,6 +7,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+//import com.google.firebase.database.DatabaseReference;
+//import com.google.firebase.database.FirebaseDatabase;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.app.ProgressDialog;
@@ -15,8 +18,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -143,4 +148,53 @@ public class HomeActivity extends AppCompatActivity {
             });
             dialog.show();
         }
-    }
+
+        @Override
+        protected void onStart(){
+        super.onStart();
+
+        FirebaseRecyclerOptions<Model> options = new FirebaseRecyclerOptions.Builder<Model>()
+                .setQuery(reference, Model.class)
+                .build();
+
+        FirebaseRecyclerAdapter<Model, MyViewHolder> adapter = new FirebaseRecyclerAdapter<Model, MyViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull MyViewHolder holder, int position, @NonNull Model model) {
+                holder.setDate(model.getDate());
+                holder.setTask(model.getTask());
+                holder.setDesc(model.getDescription());
+
+            }
+            @NonNull
+            @Override
+            public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.retrieved_layout, parent, false);
+                return new MyViewHolder(view);
+            }
+          };
+          recyclerView.setAdapter(adapter);
+          adapter.startListening();
+        }
+
+        public static class MyViewHolder extends RecyclerView.ViewHolder {
+        View mView;
+            public MyViewHolder(@NonNull View itemView) {
+                super(itemView);
+                mView = itemView;
+            }
+
+            public void setTask(String task){
+                TextView taskTextView = mView.findViewById(R.id.taskTv);
+                taskTextView.setText(task);
+            }
+
+            public void setDesc(String desc){
+                TextView descTextView = mView.findViewById(R.id.descriptionTv);
+                descTextView.setText(desc);
+            }
+
+            public void setDate(String date){
+                TextView dateTextView = mView.findViewById(R.id.dateTv);
+            }
+        }
+}
