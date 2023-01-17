@@ -44,10 +44,12 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         loader = new ProgressDialog(this);
 
-        if(mAuth != null){
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(intent);
-        }
+
+        //로그인을 다시 할 필요가 없게 해주는 기능이기 때문에 현 시점에서는 필요하지 않아.
+//        if(mAuth != null){
+//            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+//            startActivity(intent);
+//        }
 
 
 
